@@ -1,0 +1,1056 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1">
+
+  <title>GeoJSON Flowing Arrow Test</title>
+
+
+  <!-- =====================================================
+       ArcGIS Maps SDK for JavaScript 5.1
+       MoveAlongLine was introduced in 5.1
+       ===================================================== -->
+
+  <script
+    type="module"
+    src="https://js.arcgis.com/5.1/">
+  </script>
+
+
+  <style>
+
+    html,
+    body,
+    #viewDiv {
+
+      width: 100%;
+      height: 100%;
+      margin: 0;
+
+    }
+
+
+    #status {
+
+      position: absolute;
+
+      z-index: 10;
+
+      top: 15px;
+      left: 70px;
+
+      padding: 12px 16px;
+
+      background: white;
+
+      font-family: Arial, sans-serif;
+
+      font-size: 14px;
+
+      border-radius: 6px;
+
+      box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.25);
+
+    }
+
+  </style>
+
+</head>
+
+
+
+<body>
+
+
+<!-- Map -->
+
+<div id="viewDiv"></div>
+
+
+<!-- Status message -->
+
+<div id="status">
+
+  Loading Web Map...
+
+</div>
+
+
+
+<script type="module">
+
+
+/* =========================================================
+   YOUR WEB MAP
+   ========================================================= */
+
+
+const WEBMAP_ID =
+  "966c5af216b14872b4a76a1e58fae05d";
+
+
+/*
+  This is the GeoJSON layer shown in your Web Map.
+
+  From your screenshot:
+
+  lineTest_Json
+*/
+
+const GEOJSON_LAYER_NAME =
+  "lineTest_Json";
+
+
+
+/* =========================================================
+   IMPORT ARCGIS CLASSES
+   ========================================================= */
+
+
+const [
+
+  WebMap,
+  MapView,
+  Graphic,
+  GraphicsLayer,
+  CIMSymbol,
+  config
+
+] = await $arcgis.import([
+
+  "@arcgis/core/WebMap.js",
+
+  "@arcgis/core/views/MapView.js",
+
+  "@arcgis/core/Graphic.js",
+
+  "@arcgis/core/layers/GraphicsLayer.js",
+
+  "@arcgis/core/symbols/CIMSymbol.js",
+
+  "@arcgis/core/config.js"
+
+]);
+
+
+
+/* =========================================================
+   STATUS MESSAGE
+   ========================================================= */
+
+
+const status =
+  document.getElementById("status");
+
+
+
+/* =========================================================
+   IMPORTANT:
+   DO NOT DISABLE ANIMATION BECAUSE OF WINDOWS
+   "Reduce Motion" SETTINGS
+   ========================================================= */
+
+
+config.respectPrefersReducedMotion =
+  false;
+
+
+
+try {
+
+
+
+  /* =======================================================
+     STEP 1
+     LOAD YOUR ARCGIS ONLINE WEB MAP
+     ======================================================= */
+
+
+  status.innerHTML =
+    "1/6 Loading Web Map...";
+
+
+  const webmap =
+    new WebMap({
+
+      portalItem: {
+
+        id:
+          WEBMAP_ID
+
+      }
+
+    });
+
+
+
+  /* =======================================================
+     STEP 2
+     CREATE MAP VIEW
+     ======================================================= */
+
+
+  const view =
+    new MapView({
+
+      container:
+        "viewDiv",
+
+      map:
+        webmap
+
+    });
+
+
+
+  await view.when();
+
+
+
+  console.log(
+    "✓ Web Map loaded"
+  );
+
+
+  status.innerHTML =
+    "2/6 Web Map loaded. Looking for GeoJSON layer...";
+
+
+
+  /* =======================================================
+     STEP 3
+     FIND lineTest_Json
+     ======================================================= */
+
+
+  console.log(
+    "Layers inside Web Map:"
+  );
+
+
+  webmap.allLayers.forEach(
+
+    layer => {
+
+      console.log(
+
+        "Layer:",
+        layer.title,
+        "| Type:",
+        layer.type
+
+      );
+
+    }
+
+  );
+
+
+
+  let geoJSONLayer =
+    webmap.allLayers.find(
+
+      layer =>
+
+        layer.title === GEOJSON_LAYER_NAME &&
+        layer.type === "geojson"
+
+    );
+
+
+
+  /*
+    Backup:
+
+    If for some reason the exact title changes,
+    find the first GeoJSON layer.
+  */
+
+
+  if (!geoJSONLayer) {
+
+    console.warn(
+      "Exact layer name not found."
+    );
+
+
+    console.warn(
+      "Looking for first GeoJSON layer instead..."
+    );
+
+
+    geoJSONLayer =
+      webmap.allLayers.find(
+
+        layer =>
+          layer.type === "geojson"
+
+      );
+
+  }
+
+
+
+  if (!geoJSONLayer) {
+
+    throw new Error(
+
+      "No GeoJSON layer was found in this Web Map."
+
+    );
+
+  }
+
+
+
+  await geoJSONLayer.load();
+
+
+
+  console.log(
+    "✓ GeoJSON layer found:",
+    geoJSONLayer.title
+  );
+
+
+  console.log(
+    "Geometry type:",
+    geoJSONLayer.geometryType
+  );
+
+
+
+  /* =======================================================
+     MAKE SURE IT REALLY IS A LINE
+     ======================================================= */
+
+
+  if (
+    geoJSONLayer.geometryType !== "polyline"
+  ) {
+
+    throw new Error(
+
+      "GeoJSON layer was found, but its geometry is not polyline."
+
+    );
+
+  }
+
+
+
+  status.innerHTML =
+
+    "3/6 Found line layer: "
+    + geoJSONLayer.title;
+
+
+
+  /* =======================================================
+     STEP 4
+     READ THE LINE FEATURES FROM GEOJSON
+     ======================================================= */
+
+
+  const results =
+    await geoJSONLayer.queryFeatures();
+
+
+
+  const features =
+    results.features;
+
+
+
+  console.log(
+
+    "✓ Number of line features:",
+    features.length
+
+  );
+
+
+
+  if (
+    features.length === 0
+  ) {
+
+    throw new Error(
+
+      "The GeoJSON layer contains no line features."
+
+    );
+
+  }
+
+
+
+  status.innerHTML =
+
+    "4/6 Found "
+    + features.length
+    + " line feature(s). Creating animation...";
+
+
+
+  /* =======================================================
+     STEP 5
+     CREATE THE ANIMATED ARROW SYMBOL
+
+     This structure follows Esri's official
+     MoveAlongLine example.
+     ======================================================= */
+
+
+  const movingArrowSymbol =
+    new CIMSymbol({
+
+
+      data: {
+
+
+        type:
+          "CIMSymbolReference",
+
+
+
+        symbol: {
+
+
+          type:
+            "CIMLineSymbol",
+
+
+
+          symbolLayers: [
+
+
+
+            /* =================================================
+               SYMBOL LAYER 1
+               MOVING WHITE ARROWS
+               ================================================= */
+
+
+            {
+
+
+              type:
+                "CIMVectorMarker",
+
+
+
+              /* -----------------------------------------------
+                 ANIMATION
+                 ----------------------------------------------- */
+
+
+              animations: [
+
+
+                {
+
+
+                  type:
+                    "CIMSymbolAnimationMoveAlongLine",
+
+
+
+                  /*
+                    Use constant SPEED rather than duration
+                  */
+
+                  movementType:
+                    "Speed",
+
+
+
+                  /*
+                    Arrow movement speed.
+
+                    Esri sample = 24 points / second.
+                  */
+
+                  speed:
+                    24,
+
+
+
+                  /*
+                    Keep moving without stopping
+                  */
+
+                  continuous:
+                    true,
+
+
+
+                  animatedSymbolProperties: {
+
+
+                    type:
+                      "CIMAnimatedSymbolProperties",
+
+
+                    /*
+                      Start automatically
+                    */
+
+                    playAnimation:
+                      true,
+
+
+                    /*
+                      Repeat forever
+                    */
+
+                    repeatType:
+                      "Loop",
+
+
+                    /*
+                      Same speed throughout movement
+                    */
+
+                    easing:
+                      "Linear"
+
+
+                  }
+
+
+                }
+
+
+              ],
+
+
+
+              /* -----------------------------------------------
+                 NORMAL MARKER SETTINGS
+                 ----------------------------------------------- */
+
+
+              enable:
+                true,
+
+
+              colorLocked:
+                true,
+
+
+              anchorPointUnits:
+                "Relative",
+
+
+              dominantSizeAxis3D:
+                "Y",
+
+
+
+              /*
+                ARROW SIZE
+
+                Try:
+                4 = small
+                6 = normal
+                9 = large
+              */
+
+              size:
+                6,
+
+
+              billboardMode3D:
+                "FaceNearPlane",
+
+
+
+              /* -----------------------------------------------
+                 PLACE MULTIPLE ARROWS ALONG EACH LINE
+                 ----------------------------------------------- */
+
+
+              markerPlacement: {
+
+
+                type:
+                  "CIMMarkerPlacementAlongLineSameSize",
+
+
+
+                /*
+                  If feature is multipart,
+                  animate each part
+                */
+
+                placePerPart:
+                  true,
+
+
+
+                /*
+                  Rotate arrow so it follows the line
+                */
+
+                angleToLine:
+                  true,
+
+
+                keepUpright:
+                  false,
+
+
+                endings:
+                  "WithHalfGap",
+
+
+
+                /*
+                  DISTANCE BETWEEN ARROWS
+
+                  Smaller number = more arrows
+
+                  10 = dense
+                  16 = normal
+                  30 = sparse
+                */
+
+                placementTemplate:
+                  [16]
+
+
+              },
+
+
+
+              /* -----------------------------------------------
+                 ARROW DRAWING AREA
+                 ----------------------------------------------- */
+
+
+              frame: {
+
+
+                xmin:
+                  0,
+
+
+                ymin:
+                  0,
+
+
+                xmax:
+                  17,
+
+
+                ymax:
+                  17
+
+
+              },
+
+
+
+              /* -----------------------------------------------
+                 DRAW THE > ARROW
+                 ----------------------------------------------- */
+
+
+              markerGraphics: [
+
+
+                {
+
+
+                  type:
+                    "CIMMarkerGraphic",
+
+
+
+                  geometry: {
+
+
+                    rings: [
+
+
+                      [
+
+
+                        [13.36, 8.5],
+
+                        [4.86, 17],
+
+                        [3.64, 15.78],
+
+                        [10, 9.45],
+
+                        [10, 7.6],
+
+                        [3.64, 1.21],
+
+                        [4.86, 0],
+
+                        [13.36, 8.5]
+
+
+                      ]
+
+
+                    ]
+
+
+                  },
+
+
+
+                  symbol: {
+
+
+                    type:
+                      "CIMPolygonSymbol",
+
+
+
+                    symbolLayers: [
+
+
+                      {
+
+
+                        type:
+                          "CIMSolidFill",
+
+
+                        enable:
+                          true,
+
+
+
+                        /*
+                          WHITE ARROW
+                        */
+
+                        color:
+                          [255, 255, 255, 255]
+
+
+                      }
+
+
+                    ]
+
+
+                  }
+
+
+                }
+
+
+              ],
+
+
+
+              scaleSymbolsProportionally:
+                true,
+
+
+              respectFrame:
+                true
+
+
+            },
+
+
+
+            /* =================================================
+               SYMBOL LAYER 2
+               BLUE BASE LINE
+               ================================================= */
+
+
+            {
+
+
+              type:
+                "CIMSolidStroke",
+
+
+              enable:
+                true,
+
+
+              capStyle:
+                "Round",
+
+
+              joinStyle:
+                "Round",
+
+
+              miterLimit:
+                10,
+
+
+
+              /*
+                LINE WIDTH
+              */
+
+              width:
+                10,
+
+
+
+              /*
+                BLUE
+
+                R = 0
+                G = 122
+                B = 194
+                Alpha = 255
+              */
+
+              color:
+                [0, 122, 194, 255]
+
+
+            }
+
+
+          ]
+
+
+        }
+
+
+      }
+
+
+    });
+
+
+
+  /* =======================================================
+     STEP 6
+     CREATE A GRAPHICS LAYER FOR THE ANIMATION
+     ======================================================= */
+
+
+  const animatedLayer =
+    new GraphicsLayer({
+
+      title:
+        "Animated Flow Lines"
+
+    });
+
+
+
+  /*
+    Add animation layer above existing layers
+  */
+
+
+  webmap.add(
+    animatedLayer
+  );
+
+
+
+  /* =======================================================
+     COPY EACH GEOJSON LINE INTO THE GRAPHICS LAYER
+     ======================================================= */
+
+
+  for (
+    const feature of features
+  ) {
+
+
+    const animatedGraphic =
+      new Graphic({
+
+
+        /*
+          We reuse the geometry.
+
+          THIS DOES NOT MODIFY THE ORIGINAL GEOJSON.
+        */
+
+        geometry:
+          feature.geometry,
+
+
+
+        /*
+          Copy attributes too.
+        */
+
+        attributes:
+          feature.attributes,
+
+
+
+        /*
+          Apply animated arrow symbol.
+        */
+
+        symbol:
+          movingArrowSymbol
+
+
+      });
+
+
+
+    animatedLayer.add(
+      animatedGraphic
+    );
+
+
+  }
+
+
+
+  /* =======================================================
+     HIDE ORIGINAL STATIC GEOJSON
+     ======================================================= */
+
+
+  geoJSONLayer.visible =
+    false;
+
+
+
+  /* =======================================================
+     OPTIONAL:
+     ZOOM TO YOUR LINES
+     ======================================================= */
+
+
+  if (
+    geoJSONLayer.fullExtent
+  ) {
+
+
+    try {
+
+
+      await view.goTo(
+
+        geoJSONLayer.fullExtent.expand(1.2),
+
+        {
+
+          duration:
+            800
+
+        }
+
+      );
+
+
+    }
+
+
+    catch (goToError) {
+
+
+      console.warn(
+        "Zoom skipped:",
+        goToError
+      );
+
+
+    }
+
+
+  }
+
+
+
+  /* =======================================================
+     SUCCESS
+     ======================================================= */
+
+
+  status.innerHTML =
+
+    "✓ SUCCESS — "
+    + features.length
+    + " animated line(s)";
+
+
+  console.log(
+    "======================================"
+  );
+
+
+  console.log(
+    "SUCCESS"
+  );
+
+
+  console.log(
+
+    "Animated GeoJSON layer:",
+    geoJSONLayer.title
+
+  );
+
+
+  console.log(
+
+    "Number of animated lines:",
+    animatedLayer.graphics.length
+
+  );
+
+
+  console.log(
+    "======================================"
+  );
+
+
+}
+
+
+
+/* =========================================================
+   ERROR
+   ========================================================= */
+
+
+catch (error) {
+
+
+  console.error(
+    "ANIMATION ERROR:",
+    error
+  );
+
+
+  status.innerHTML =
+
+    "ERROR — press F12 → Console";
+
+
+}
+
+
+
+</script>
+
+
+</body>
+
+</html>
