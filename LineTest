@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<!-- saved from url=(0056)http://127.0.0.1:3000/index.html?vscode-livepreview=true -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script type="text/javascript" src="./GeoJSON Flowing Arrow Test_files/___vscode_livepreview_injected_script"></script>
+
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>GeoJSON Flowing Arrow Test</title>
+
+
+  <!-- =====================================================
+       ArcGIS Maps SDK for JavaScript 5.1
+       MoveAlongLine was introduced in 5.1
+       ===================================================== -->
+
+  <script type="module" src="./GeoJSON Flowing Arrow Test_files/saved_resource">
+  </script>
+
+
+  <style>
+
+    html,
+    body,
+    #viewDiv {
+
+      width: 100%;
+      height: 100%;
+      margin: 0;
+
+    }
+
+
+    #status {
+
+      position: absolute;
+
+      z-index: 10;
+
+      top: 15px;
+      left: 70px;
+
+      padding: 12px 16px;
+
+      background: white;
+
+      font-family: Arial, sans-serif;
+
+      font-size: 14px;
+
+      border-radius: 6px;
+
+      box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.25);
+
+    }
+
+  </style>
+
+<script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/reactiveUtils.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/WebMap.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/MapView.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/GraphicsLayer.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/webglDeps.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/mapViewDeps.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/IdentityManager.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/GeoJSONLayer.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/TileLayer.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/VectorTileLayer.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/layersLoader.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/GeoJSONLayerView2D.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/TileLayerView2D.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/VectorTileLayerView2D.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/FeatureLikeLayerView2D.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/GeoJSONLayerView.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/FeatureLikeLayerView.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/AggregateGraphic.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/TrackGraphic.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/rotate.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/FeatureEffectView.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/timeSupport.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/AggregateFeatureSet.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/AttributeBinsFeatureSet.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/AttributeBinsQuery.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/symbolUtils.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/FeaturePipelineWorkerProxy.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/FeatureSourceEventLog.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/AnnotationLayerAdapter.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/CatalogFootprintLayerAdapter.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/DimensionLayerAdapter.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/FeatureLayerAdapter.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/featureServiceUtils.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/InMemoryLayerAdapter.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/KnowledgeGraphSublayerAdapter.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/OGCFeatureLayerAdapter.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/OrientedImageryLayerAdapter.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/ParquetLayerAdapter.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/StreamLayerAdapter.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/SubtypeGroupLayerAdapter.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/DebouncedFeatureOverride.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/handleNoEngineError.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/FeatureTileSubscriptionManager.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/rotate(1).js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/AutoIntervalBinParameters.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/BinParametersBase.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/DateBinParameters.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/FixedBoundariesBinParameters.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/FixedIntervalBinParameters.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/gfxUtils.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/renderUtils.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/utils.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/relationshipUtils.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/relationshipRampUtils.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/AttributeBinsGraphic.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/timeUtils.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/floorFilterUtils.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/geometryUtils.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/ExceedsLimitCache.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/SourceSchema.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/SimpleProcessorSchema.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/annotationSchema.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/labelingUtils.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/dimensionSchema.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/featureReductionUtils.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/constants.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/parquetUtils.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/TileCombinedCoverage.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/SubtypeProcessorSchema.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/FeatureIdInfo.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/featurePopupQueryUtils.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/WhereClauseVisitor.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/AttributeBinsGrouping.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/GraphicsLayerView2D.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/DateBinTimeInterval.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/cimSymbolUtils.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/svgUtils.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/previewSymbol3D.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/utils(1).js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/FeatureSourceQueryInfo.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/LabelMatcherSchema.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/MatcherSchema.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/cimAnnotations.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/visualVariableSimpleUtils.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/dimensionSymbols.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/createFileProvider.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/parquetEncodingUtils.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/ParquetFilesData.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/GraphicsLayerView.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/DateBinUtils.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/svgGlobalState.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/tagSymbols.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/SymbolSchema.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/PortalParquetFileProvider.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/PortalParquetLayerFileProvider.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/UrlsFileProvider.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/GeometryEncodingLocation.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/GeometryEncodingWkb.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/apng.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/FileProvider.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/dimensionStyleDefaults.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/dimensionUtils.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/previewUtils.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/primitives.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/webStyleSymbolUtils.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/fileProviderChangedError.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/virtualFields.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/_commonjsHelpers.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/devEnvironmentUtils.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/webStyleAcceptedFormats.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/ParquetFileInfo.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/ParquetFileStatistics.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/parquet.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/supportUtils.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/locationUtils.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/loadParquetModule.js.download"></script><script type="text/javascript" charset="utf-8" src="./GeoJSON Flowing Arrow Test_files/Popup.js.download"></script></head>
+
+
+
+<body>
+
+
+<!-- Map -->
+
+<div id="viewDiv" class="esri-view esri-view-width-xlarge esri-view-width-greater-than-xsmall esri-view-width-greater-than-small esri-view-width-greater-than-medium esri-view-width-greater-than-large esri-view-height-medium esri-view-height-greater-than-xsmall esri-view-height-greater-than-small esri-view-height-less-than-large esri-view-height-less-than-xlarge esri-view-orientation-landscape"><div class="esri-view-root"><div class="esri-view-surface esri-view-surface--touch-none" role="application" tabindex="0"><canvas style="width: 1897px; height: 948px; display: block;" width="1897" height="948"></canvas></div><div class="esri-overlay-surface"><div style="visibility: hidden;"></div></div><div dir="ltr" class="esri-widget esri-view-attribution esri-attribution calcite-mode-light">
+      <div class="esri-attribution__sources" tabindex="">City of Anaheim | California State Parks | Esri | TomTom | Garmin | SafeGraph | NASA | NGA | USGS | METI/NASA | Bureau of Land Management | EPA | NPS | USDA | USFWS</div>
+      <div class="esri-attribution__powered-by">
+        Powered by
+        <a class="esri-attribution__link" href="https://www.esri.com/" rel="noreferrer" target="_blank">Esri</a>
+      </div></div><div class="esri-ui calcite-mode-light" lang="en" style="inset: 0px;"><div class="esri-ui-inner-container esri-ui-corner-container" style="inset: 15px 15px 30px;"><div class="esri-ui-top-left esri-ui-corner"><div class="esri-component esri-zoom esri-widget"><calcite-button class="esri-widget--button" title="Zoom in" alignment="center" appearance="solid" kind="neutral" scale="m" split-child="false" type="button" width="auto" icon-start="plus" calcite-hydrated=""><template shadowrootmode="open"><!----><div class="interaction-container"><!--?lit$407729479$--><button aria-live="polite" aria-busy="false" aria-label="Zoom in" class=" button-padding--shrunk icon-end-empty " href="false" rel="false" target="false" type="button"><!--?lit$407729479$--><!--?lit$407729479$--><calcite-icon class=" icon icon--start " aria-hidden="true" scale="s" icon="plus" calcite-hydrated=""><template shadowrootmode="open"><!----><svg aria-hidden="true" fill="currentColor" height="100%" width="100%" xmlns="http://www.w3.org/2000/svg" class=" svg " viewBox="0 0 16 16"><!--?lit$407729479$--><!----><path d="M9 4v4h4v1H9v4H8V9H4V8h4V4z"></path><!----></svg></template></calcite-icon><!--?lit$407729479$--><!--?lit$407729479$--></button></div></template></calcite-button><calcite-button class="esri-widget--button" title="Zoom out" alignment="center" appearance="solid" kind="neutral" scale="m" split-child="false" type="button" width="auto" icon-start="minus" calcite-hydrated=""><template shadowrootmode="open"><!----><div class="interaction-container"><!--?lit$407729479$--><button aria-live="polite" aria-busy="false" aria-label="Zoom out" class=" button-padding--shrunk icon-end-empty " href="false" rel="false" target="false" type="button"><!--?lit$407729479$--><!--?lit$407729479$--><calcite-icon class=" icon icon--start " aria-hidden="true" scale="s" icon="minus" calcite-hydrated=""><template shadowrootmode="open"><!----><svg aria-hidden="true" fill="currentColor" height="100%" width="100%" xmlns="http://www.w3.org/2000/svg" class=" svg " viewBox="0 0 16 16"><!--?lit$407729479$--><!----><path d="M13 8v1H3V8z"></path><!----></svg></template></calcite-icon><!--?lit$407729479$--><!--?lit$407729479$--></button></div></template></calcite-button></div></div><div class="esri-ui-top-right esri-ui-corner"></div><div class="esri-ui-bottom-left esri-ui-corner"></div><div class="esri-ui-bottom-right esri-ui-corner"></div></div><div class="esri-ui-inner-container esri-ui-manual-container"></div></div></div><div class="esri-view-user-storage"></div></div>
+
+
+<!-- Status message -->
+
+<div id="status">✓ SUCCESS — 3 animated line(s)</div>
+
+
+
+<script type="module">
+
+
+/* =========================================================
+   YOUR WEB MAP
+   ========================================================= */
+
+
+const WEBMAP_ID =
+  "966c5af216b14872b4a76a1e58fae05d";
+
+
+/*
+  This is the GeoJSON layer shown in your Web Map.
+
+  From your screenshot:
+
+  lineTest_Json
+*/
+
+const GEOJSON_LAYER_NAME =
+  "lineTest_Json";
+
+
+
+/* =========================================================
+   IMPORT ARCGIS CLASSES
+   ========================================================= */
+
+
+const [
+
+  WebMap,
+  MapView,
+  Graphic,
+  GraphicsLayer,
+  CIMSymbol,
+  config
+
+] = await $arcgis.import([
+
+  "@arcgis/core/WebMap.js",
+
+  "@arcgis/core/views/MapView.js",
+
+  "@arcgis/core/Graphic.js",
+
+  "@arcgis/core/layers/GraphicsLayer.js",
+
+  "@arcgis/core/symbols/CIMSymbol.js",
+
+  "@arcgis/core/config.js"
+
+]);
+
+
+
+/* =========================================================
+   STATUS MESSAGE
+   ========================================================= */
+
+
+const status =
+  document.getElementById("status");
+
+
+
+/* =========================================================
+   IMPORTANT:
+   DO NOT DISABLE ANIMATION BECAUSE OF WINDOWS
+   "Reduce Motion" SETTINGS
+   ========================================================= */
+
+
+config.respectPrefersReducedMotion =
+  false;
+
+
+
+try {
+
+
+
+  /* =======================================================
+     STEP 1
+     LOAD YOUR ARCGIS ONLINE WEB MAP
+     ======================================================= */
+
+
+  status.innerHTML =
+    "1/6 Loading Web Map...";
+
+
+  const webmap =
+    new WebMap({
+
+      portalItem: {
+
+        id:
+          WEBMAP_ID
+
+      }
+
+    });
+
+
+
+  /* =======================================================
+     STEP 2
+     CREATE MAP VIEW
+     ======================================================= */
+
+
+  const view =
+    new MapView({
+
+      container:
+        "viewDiv",
+
+      map:
+        webmap
+
+    });
+
+
+
+  await view.when();
+
+
+
+  console.log(
+    "✓ Web Map loaded"
+  );
+
+
+  status.innerHTML =
+    "2/6 Web Map loaded. Looking for GeoJSON layer...";
+
+
+
+  /* =======================================================
+     STEP 3
+     FIND lineTest_Json
+     ======================================================= */
+
+
+  console.log(
+    "Layers inside Web Map:"
+  );
+
+
+  webmap.allLayers.forEach(
+
+    layer => {
+
+      console.log(
+
+        "Layer:",
+        layer.title,
+        "| Type:",
+        layer.type
+
+      );
+
+    }
+
+  );
+
+
+
+  let geoJSONLayer =
+    webmap.allLayers.find(
+
+      layer =>
+
+        layer.title === GEOJSON_LAYER_NAME &&
+        layer.type === "geojson"
+
+    );
+
+
+
+  /*
+    Backup:
+
+    If for some reason the exact title changes,
+    find the first GeoJSON layer.
+  */
+
+
+  if (!geoJSONLayer) {
+
+    console.warn(
+      "Exact layer name not found."
+    );
+
+
+    console.warn(
+      "Looking for first GeoJSON layer instead..."
+    );
+
+
+    geoJSONLayer =
+      webmap.allLayers.find(
+
+        layer =>
+          layer.type === "geojson"
+
+      );
+
+  }
+
+
+
+  if (!geoJSONLayer) {
+
+    throw new Error(
+
+      "No GeoJSON layer was found in this Web Map."
+
+    );
+
+  }
+
+
+
+  await geoJSONLayer.load();
+
+
+
+  console.log(
+    "✓ GeoJSON layer found:",
+    geoJSONLayer.title
+  );
+
+
+  console.log(
+    "Geometry type:",
+    geoJSONLayer.geometryType
+  );
+
+
+
+  /* =======================================================
+     MAKE SURE IT REALLY IS A LINE
+     ======================================================= */
+
+
+  if (
+    geoJSONLayer.geometryType !== "polyline"
+  ) {
+
+    throw new Error(
+
+      "GeoJSON layer was found, but its geometry is not polyline."
+
+    );
+
+  }
+
+
+
+  status.innerHTML =
+
+    "3/6 Found line layer: "
+    + geoJSONLayer.title;
+
+
+
+  /* =======================================================
+     STEP 4
+     READ THE LINE FEATURES FROM GEOJSON
+     ======================================================= */
+
+
+  const results =
+    await geoJSONLayer.queryFeatures();
+
+
+
+  const features =
+    results.features;
+
+
+
+  console.log(
+
+    "✓ Number of line features:",
+    features.length
+
+  );
+
+
+
+  if (
+    features.length === 0
+  ) {
+
+    throw new Error(
+
+      "The GeoJSON layer contains no line features."
+
+    );
+
+  }
+
+
+
+  status.innerHTML =
+
+    "4/6 Found "
+    + features.length
+    + " line feature(s). Creating animation...";
+
+
+
+  /* =======================================================
+     STEP 5
+     CREATE THE ANIMATED ARROW SYMBOL
+
+     This structure follows Esri's official
+     MoveAlongLine example.
+     ======================================================= */
+
+
+  const movingArrowSymbol =
+    new CIMSymbol({
+
+
+      data: {
+
+
+        type:
+          "CIMSymbolReference",
+
+
+
+        symbol: {
+
+
+          type:
+            "CIMLineSymbol",
+
+
+
+          symbolLayers: [
+
+
+
+            /* =================================================
+               SYMBOL LAYER 1
+               MOVING WHITE ARROWS
+               ================================================= */
+
+
+            {
+
+
+              type:
+                "CIMVectorMarker",
+
+
+
+              /* -----------------------------------------------
+                 ANIMATION
+                 ----------------------------------------------- */
+
+
+              animations: [
+
+
+                {
+
+
+                  type:
+                    "CIMSymbolAnimationMoveAlongLine",
+
+
+
+                  /*
+                    Use constant SPEED rather than duration
+                  */
+
+                  movementType:
+                    "Speed",
+
+
+
+                  /*
+                    Arrow movement speed.
+
+                    Esri sample = 24 points / second.
+                  */
+
+                  speed:
+                    24,
+
+
+
+                  /*
+                    Keep moving without stopping
+                  */
+
+                  continuous:
+                    true,
+
+
+
+                  animatedSymbolProperties: {
+
+
+                    type:
+                      "CIMAnimatedSymbolProperties",
+
+
+                    /*
+                      Start automatically
+                    */
+
+                    playAnimation:
+                      true,
+
+
+                    /*
+                      Repeat forever
+                    */
+
+                    repeatType:
+                      "Loop",
+
+
+                    /*
+                      Same speed throughout movement
+                    */
+
+                    easing:
+                      "Linear"
+
+
+                  }
+
+
+                }
+
+
+              ],
+
+
+
+              /* -----------------------------------------------
+                 NORMAL MARKER SETTINGS
+                 ----------------------------------------------- */
+
+
+              enable:
+                true,
+
+
+              colorLocked:
+                true,
+
+
+              anchorPointUnits:
+                "Relative",
+
+
+              dominantSizeAxis3D:
+                "Y",
+
+
+
+              /*
+                ARROW SIZE
+
+                Try:
+                4 = small
+                6 = normal
+                9 = large
+              */
+
+              size:
+                6,
+
+
+              billboardMode3D:
+                "FaceNearPlane",
+
+
+
+              /* -----------------------------------------------
+                 PLACE MULTIPLE ARROWS ALONG EACH LINE
+                 ----------------------------------------------- */
+
+
+              markerPlacement: {
+
+
+                type:
+                  "CIMMarkerPlacementAlongLineSameSize",
+
+
+
+                /*
+                  If feature is multipart,
+                  animate each part
+                */
+
+                placePerPart:
+                  true,
+
+
+
+                /*
+                  Rotate arrow so it follows the line
+                */
+
+                angleToLine:
+                  true,
+
+
+                keepUpright:
+                  false,
+
+
+                endings:
+                  "WithHalfGap",
+
+
+
+                /*
+                  DISTANCE BETWEEN ARROWS
+
+                  Smaller number = more arrows
+
+                  10 = dense
+                  16 = normal
+                  30 = sparse
+                */
+
+                placementTemplate:
+                  [16]
+
+
+              },
+
+
+
+              /* -----------------------------------------------
+                 ARROW DRAWING AREA
+                 ----------------------------------------------- */
+
+
+              frame: {
+
+
+                xmin:
+                  0,
+
+
+                ymin:
+                  0,
+
+
+                xmax:
+                  17,
+
+
+                ymax:
+                  17
+
+
+              },
+
+
+
+              /* -----------------------------------------------
+                 DRAW THE > ARROW
+                 ----------------------------------------------- */
+
+
+              markerGraphics: [
+
+
+                {
+
+
+                  type:
+                    "CIMMarkerGraphic",
+
+
+
+                  geometry: {
+
+
+                    rings: [
+
+
+                      [
+
+
+                        [13.36, 8.5],
+
+                        [4.86, 17],
+
+                        [3.64, 15.78],
+
+                        [10, 9.45],
+
+                        [10, 7.6],
+
+                        [3.64, 1.21],
+
+                        [4.86, 0],
+
+                        [13.36, 8.5]
+
+
+                      ]
+
+
+                    ]
+
+
+                  },
+
+
+
+                  symbol: {
+
+
+                    type:
+                      "CIMPolygonSymbol",
+
+
+
+                    symbolLayers: [
+
+
+                      {
+
+
+                        type:
+                          "CIMSolidFill",
+
+
+                        enable:
+                          true,
+
+
+
+                        /*
+                          WHITE ARROW
+                        */
+
+                        color:
+                          [255, 255, 255, 255]
+
+
+                      }
+
+
+                    ]
+
+
+                  }
+
+
+                }
+
+
+              ],
+
+
+
+              scaleSymbolsProportionally:
+                true,
+
+
+              respectFrame:
+                true
+
+
+            },
+
+
+
+            /* =================================================
+               SYMBOL LAYER 2
+               BLUE BASE LINE
+               ================================================= */
+
+
+            {
+
+
+              type:
+                "CIMSolidStroke",
+
+
+              enable:
+                true,
+
+
+              capStyle:
+                "Round",
+
+
+              joinStyle:
+                "Round",
+
+
+              miterLimit:
+                10,
+
+
+
+              /*
+                LINE WIDTH
+              */
+
+              width:
+                10,
+
+
+
+              /*
+                BLUE
+
+                R = 0
+                G = 122
+                B = 194
+                Alpha = 255
+              */
+
+              color:
+                [0, 122, 194, 255]
+
+
+            }
+
+
+          ]
+
+
+        }
+
+
+      }
+
+
+    });
+
+
+
+  /* =======================================================
+     STEP 6
+     CREATE A GRAPHICS LAYER FOR THE ANIMATION
+     ======================================================= */
+
+
+  const animatedLayer =
+    new GraphicsLayer({
+
+      title:
+        "Animated Flow Lines"
+
+    });
+
+
+
+  /*
+    Add animation layer above existing layers
+  */
+
+
+  webmap.add(
+    animatedLayer
+  );
+
+
+
+  /* =======================================================
+     COPY EACH GEOJSON LINE INTO THE GRAPHICS LAYER
+     ======================================================= */
+
+
+  for (
+    const feature of features
+  ) {
+
+
+    const animatedGraphic =
+      new Graphic({
+
+
+        /*
+          We reuse the geometry.
+
+          THIS DOES NOT MODIFY THE ORIGINAL GEOJSON.
+        */
+
+        geometry:
+          feature.geometry,
+
+
+
+        /*
+          Copy attributes too.
+        */
+
+        attributes:
+          feature.attributes,
+
+
+
+        /*
+          Apply animated arrow symbol.
+        */
+
+        symbol:
+          movingArrowSymbol
+
+
+      });
+
+
+
+    animatedLayer.add(
+      animatedGraphic
+    );
+
+
+  }
+
+
+
+  /* =======================================================
+     HIDE ORIGINAL STATIC GEOJSON
+     ======================================================= */
+
+
+  geoJSONLayer.visible =
+    false;
+
+
+
+  /* =======================================================
+     OPTIONAL:
+     ZOOM TO YOUR LINES
+     ======================================================= */
+
+
+  if (
+    geoJSONLayer.fullExtent
+  ) {
+
+
+    try {
+
+
+      await view.goTo(
+
+        geoJSONLayer.fullExtent.expand(1.2),
+
+        {
+
+          duration:
+            800
+
+        }
+
+      );
+
+
+    }
+
+
+    catch (goToError) {
+
+
+      console.warn(
+        "Zoom skipped:",
+        goToError
+      );
+
+
+    }
+
+
+  }
+
+
+
+  /* =======================================================
+     SUCCESS
+     ======================================================= */
+
+
+  status.innerHTML =
+
+    "✓ SUCCESS — "
+    + features.length
+    + " animated line(s)";
+
+
+  console.log(
+    "======================================"
+  );
+
+
+  console.log(
+    "SUCCESS"
+  );
+
+
+  console.log(
+
+    "Animated GeoJSON layer:",
+    geoJSONLayer.title
+
+  );
+
+
+  console.log(
+
+    "Number of animated lines:",
+    animatedLayer.graphics.length
+
+  );
+
+
+  console.log(
+    "======================================"
+  );
+
+
+}
+
+
+
+/* =========================================================
+   ERROR
+   ========================================================= */
+
+
+catch (error) {
+
+
+  console.error(
+    "ANIMATION ERROR:",
+    error
+  );
+
+
+  status.innerHTML =
+
+    "ERROR — press F12 → Console";
+
+
+}
+
+
+
+</script>
+
+
+
+
+</body></html>
